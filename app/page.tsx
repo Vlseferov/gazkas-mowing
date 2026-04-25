@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const menuItems = [
   { label: 'Преимущества', id: 'advantages' },
   { label: 'Где работаем', id: 'areas' },
@@ -6,11 +8,31 @@ const menuItems = [
   { label: 'Заявка', id: 'cta-final' },
 ];
 
-const benefits = [
-  'Работа на склонах',
-  'Безопасность оператора',
-  'Высокая производительность',
-  'Аккуратный результат',
+const heroChips = ['Сложный рельеф', 'Дистанционное управление', 'Быстрый выезд'];
+
+const heroQuickBenefits = [
+  'Работаем на склонах',
+  'Управление с пульта',
+  'Для высокой травы',
+];
+
+const advantages = [
+  {
+    title: 'Работа на склонах',
+    text: 'Техника уверенно работает на откосах, неровностях и участках, где ручной покос опасен.',
+  },
+  {
+    title: 'Безопасность оператора',
+    text: 'Оператор управляет косилкой дистанционно и не идёт по сложному рельефу пешком.',
+  },
+  {
+    title: 'Высокая производительность',
+    text: 'Быстро обрабатываем большие площади, заросшие территории и тяжёлые участки.',
+  },
+  {
+    title: 'Аккуратный результат',
+    text: 'Подходит для частных, коммерческих и технических территорий, где важен порядок.',
+  },
 ];
 
 const workAreas = [
@@ -22,164 +44,228 @@ const workAreas = [
   'Заброшенные и заросшие территории',
 ];
 
-const processSteps = ['Заявка', 'Уточнение задачи', 'Выезд и покос', 'Сдача результата'];
+const machineList = [
+  'Гусеничная база',
+  'Уверенная работа на рельефе',
+  'Дистанционное управление',
+  'Для высокой травы и сложных зон',
+];
 
-function ImageFallback({
-  className,
-  imagePath,
-  label,
-}: {
-  className: string;
-  imagePath: string;
-  label: string;
-}) {
-  return (
-    <div
-      className={className}
-      role="img"
-      aria-label={label}
-      style={{
-        backgroundImage: `linear-gradient(160deg, rgba(7, 7, 7, 0.55), rgba(11, 11, 11, 0.85)), url('${imagePath}')`,
-      }}
-    >
-      <span className="placeholder-chip">GAZKAS</span>
-    </div>
-  );
-}
+const slopesList = [
+  'Работа на уклонах и откосах',
+  'Покос высокой травы и поросли',
+  'Дистанционное управление с безопасной позиции',
+  'Подходит для обочин, склонов, промзон и заброшенных территорий',
+];
+
+const processSteps = ['Заявка', 'Оценка участка', 'Выезд техники', 'Покос и сдача результата'];
 
 export default function Home() {
   return (
-    <div className="page-shell">
-      <header className="header container">
-        <a href="#top" className="brand" id="top">
-          GAZKAS
-        </a>
-
-        <nav className="nav" aria-label="Основная навигация">
-          {menuItems.map((item) => (
-            <a key={item.id} href={`#${item.id}`}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <a className="btn btn-primary" href="#cta-final">
-          Оставить заявку
-        </a>
+    <div className="page-shell" id="top">
+      <header className="header-wrap">
+        <div className="header container">
+          <a href="#top" className="brand" aria-label="GAZKAS — наверх">
+            GAZKAS
+          </a>
+          <nav className="nav" aria-label="Основная навигация">
+            {menuItems.map((item) => (
+              <a key={item.id} href={`#${item.id}`}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <a className="btn btn-primary" href="#cta-final">
+            Оставить заявку
+          </a>
+        </div>
       </header>
 
       <main>
-        <section className="hero container section">
-          <div className="hero-content">
-            <p className="eyebrow">Услуга GAZKAS</p>
-            <h1>Покос травы на сложных участках</h1>
-            <p className="lead">
-              Склоны, обочины, заросли, промзоны, частные и коммерческие территории
-            </p>
-            <div className="actions">
-              <a className="btn btn-primary" href="#cta-final">
-                Рассчитать стоимость
-              </a>
-              <a className="btn btn-secondary" href="#cta-final">
-                Получить консультацию
-              </a>
+        <section className="hero-section">
+          <div className="container hero-grid">
+            <div className="hero-content">
+              <p className="eyebrow">УСЛУГА GAZKAS</p>
+              <h1>Покос травы на сложных участках</h1>
+              <p className="hero-lead">
+                Склоны, обочины, заросли, промзоны, частные и коммерческие территории
+              </p>
+
+              <div className="hero-actions">
+                <a className="btn btn-primary" href="#cta-final">
+                  Рассчитать стоимость
+                </a>
+                <a className="btn btn-ghost" href="#cta-final">
+                  Получить консультацию
+                </a>
+              </div>
+
+              <ul className="chip-list" aria-label="Преимущества услуги">
+                {heroChips.map((chip) => (
+                  <li key={chip}>{chip}</li>
+                ))}
+              </ul>
+
+              <ul className="quick-benefits" aria-label="Ключевые особенности">
+                {heroQuickBenefits.map((item) => (
+                  <li key={item}>
+                    <span className="line-icon" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="chips" aria-label="Ключевые преимущества">
-              <li>Работа на сложном рельефе</li>
-              <li>Дистанционное управление</li>
-              <li>Быстрый выезд</li>
-            </ul>
+
+            <div className="hero-media-wrap" aria-hidden="true">
+              <Image
+                className="hero-media"
+                src="/images/gazkas-service/hero-mower-1.png"
+                alt=""
+                width={1600}
+                height={1000}
+                priority
+              />
+              <div className="hero-media-shine" />
+            </div>
           </div>
-          <ImageFallback
-            className="hero-media"
-            imagePath="/images/gazkas-service/hero-mower-1.png"
-            label="Чёрно-жёлтая гусеничная дистанционно управляемая косилка GAZKAS в высокой траве"
-          />
         </section>
 
-        <section id="advantages" className="container section">
-          <h2>Преимущества</h2>
-          <div className="grid four">
-            {benefits.map((item) => (
-              <article className="card" key={item}>
-                <h3>{item}</h3>
-                <p>Надёжная работа в условиях сложного ландшафта и плотной растительности.</p>
+        <section id="advantages" className="section container">
+          <div className="section-head">
+            <p className="section-kicker">Преимущества</p>
+            <h2>Профессиональный покос там, где обычная техника не справляется</h2>
+          </div>
+          <div className="advantages-grid">
+            {advantages.map((item, index) => (
+              <article className="premium-card" key={item.title}>
+                <p className="card-index">0{index + 1}</p>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="areas" className="container section">
-          <h2>Где выполняем работы</h2>
-          <div className="grid three">
-            {workAreas.map((item) => (
-              <article className="card" key={item}>
+        <section id="areas" className="section container">
+          <div className="section-head">
+            <p className="section-kicker">Где выполняем работы</p>
+            <h2>Берём в работу частные, коммерческие и технические территории</h2>
+          </div>
+          <div className="areas-grid">
+            {workAreas.map((item, index) => (
+              <article className="area-card" key={item}>
+                <span className="area-icon" aria-hidden="true">
+                  {index + 1}
+                </span>
                 <h3>{item}</h3>
+                <p>Подбираем оптимальный режим покоса под рельеф, высоту травы и тип участка.</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="equipment" className="container section split">
-          <div>
-            <h2>Наша техника</h2>
+        <section id="equipment" className="section container media-section">
+          <div className="media-content">
+            <p className="section-kicker">Наша техника</p>
+            <h2>Мощная дистанционно управляемая косилка для сложных зон</h2>
+            <p>
+              Для покоса используется мощная дистанционно управляемая гусеничная косилка,
+              рассчитанная на сложный рельеф, высокую траву и труднодоступные зоны.
+            </p>
             <ul className="feature-list">
-              <li>Гусеничная база</li>
-              <li>Уверенная работа на рельефе</li>
-              <li>Дистанционное управление</li>
-              <li>Для высокой травы и сложных зон</li>
+              {machineList.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </div>
-          <ImageFallback
-            className="equipment-media"
-            imagePath="/images/gazkas-service/slope-mower-1.png"
-            label="Чёрно-жёлтая гусеничная косилка GAZKAS на склоне"
-          />
+          <div className="media-image-wrap">
+            <Image
+              className="media-image"
+              src="/images/gazkas-service/hero-mower-1.png"
+              alt="Косилка GAZKAS в высокой траве"
+              width={1400}
+              height={920}
+            />
+          </div>
         </section>
 
-        <section className="container section highlight">
-          <h2>Покос на склонах и труднодоступных участках</h2>
-          <ul className="feature-list">
-            <li>Работаем там, где ручной труд опасен и неэффективен</li>
-            <li>Сохраняем устойчивость на уклонах</li>
-            <li>Техника справляется с высокой травой, кустарником и порослью</li>
-          </ul>
+        <section className="section container slope-section">
+          <div className="slope-image-wrap">
+            <Image
+              className="slope-image"
+              src="/images/gazkas-service/slope-mower-1.png"
+              alt="Косилка GAZKAS работает на склоне"
+              width={1400}
+              height={980}
+            />
+          </div>
+          <div className="slope-content">
+            <p className="section-kicker">Сложный рельеф</p>
+            <h2>Покос на склонах и труднодоступных участках</h2>
+            <p>Работаем там, где ручной труд опасен, медленный или неэффективный.</p>
+            <ul className="feature-list">
+              {slopesList.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
         </section>
 
-        <section id="process" className="container section">
-          <h2>Как мы работаем</h2>
-          <ol className="steps">
+        <section id="process" className="section container">
+          <div className="section-head">
+            <p className="section-kicker">Как мы работаем</p>
+            <h2>Чёткий процесс без лишней нагрузки для клиента</h2>
+          </div>
+          <ol className="process-line">
             {processSteps.map((step, index) => (
               <li key={step}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
+                <span className="step-number">{String(index + 1).padStart(2, '0')}</span>
                 <p>{step}</p>
               </li>
             ))}
           </ol>
         </section>
 
-        <section id="cta-final" className="container section final-cta">
-          <h2>Нужен покос травы без лишней нагрузки?</h2>
-          <a className="btn btn-primary" href="#top">
-            Оставить заявку
-          </a>
+        <section id="cta-final" className="section container">
+          <div className="final-cta">
+            <div className="final-text">
+              <p className="section-kicker">Заявка</p>
+              <h2>Нужен покос травы без лишней нагрузки?</h2>
+              <p>
+                Пришлите описание участка или оставьте заявку — подскажем формат работы и
+                рассчитаем стоимость.
+              </p>
+              <a className="btn btn-primary" href="#top">
+                Оставить заявку
+              </a>
+            </div>
+            <Image
+              className="final-image"
+              src="/images/gazkas-service/hero-mower-1.png"
+              alt="Техника GAZKAS"
+              width={1100}
+              height={820}
+            />
+          </div>
         </section>
       </main>
 
-      <footer className="footer container">
-        <p className="brand">GAZKAS</p>
-        <p>Услуги покоса травы на сложных участках</p>
-        <p>
-          <a href="tel:+78129811010">8 (812) 981-10-10</a>
-        </p>
-        <p>
-          <a href="mailto:info@gazkas.ru">info@gazkas.ru</a>
-        </p>
-        <p>
-          <a href="https://gazkas.ru" target="_blank" rel="noreferrer">
-            gazkas.ru
-          </a>
-        </p>
+      <footer className="footer">
+        <div className="container footer-grid">
+          <p className="brand">GAZKAS</p>
+          <p>Услуги покоса травы на сложных участках</p>
+          <p>
+            <a href="tel:+78129811010">8 (812) 981-10-10</a>
+          </p>
+          <p>
+            <a href="mailto:info@gazkas.ru">info@gazkas.ru</a>
+          </p>
+          <p>
+            <a href="https://gazkas.ru" rel="noreferrer" target="_blank">
+              gazkas.ru
+            </a>
+          </p>
+        </div>
       </footer>
     </div>
   );
